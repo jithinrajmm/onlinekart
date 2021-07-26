@@ -1,0 +1,20 @@
+{% extends 'ekarthomes/base.html' %}
+{% block content %}
+{% load static %}
+<div class="row d-flex justify-content-center">
+
+<div class="card text-center" style="min-width: 70%;">
+    <div class="card-header">
+      thank you
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">order succes full</h5>
+      <p class="card-text"></p>
+      <a href="{% url 'index1' %}" class="btn btn-dark">Home</a>
+      <a href="{% url 'invoice' %}" class="btn btn-dark">invoice</a>
+    </div>
+    <div class="card-footer text-muted">
+    </div>
+  </div>
+</div>
+  {% endblock %}

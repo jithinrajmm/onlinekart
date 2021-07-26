@@ -1,0 +1,95 @@
+{% extends "adminpanel/report_genarations.html" %}
+
+{% block table %}
+<div class="table-responsive">
+    {% if ordered %}
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <input class="btn btn-outline-danger" type="button" id="btnExport" value="PDF" onclick="Export()" />
+            <input class="btn btn-outline-danger" type="button" id="btnExport" value="Excel" onclick="ExportToExcel('xlsx')" />
+        </div>
+    </div>
+    <!-- <table class="table table-bordered" > -->
+        <table class="table table-striped table-hover" id="table1">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <td>Order Date</td>
+                    <th>Customer Name</th>
+                    <th>Phone Number</th>						
+                    <th>Product</th>
+                    <th>Payment Type</th>
+                   
+                    <th>Total Amount</th>
+             
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in ordered %}
+                <tr>
+                    <td>{{order.order.order_number}}</td>
+                    <td>{{order.created_at}}</td>
+                    <td>{{order.user}}</td>
+                    <td>{{order.user.phone_number}}</td>
+                    <td>{{order.product}}</td>
+                    <td>{{order.payment.payment_method}}</td>
+                   
+                   
+                    <td>{{order.product_price}}</td>
+               </tr>
+                  
+                   
+                {% endfor %}
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total</td>
+                    <td>{{total}}</td>
+
+                </tr>
+               
+            </tbody>
+   
+    </table>
+    {% else %}
+    <div class="alert alert-danger" role="alert">
+        sorry no data available
+      </div>
+      {%endif%}
+  </div>
+  
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script type="text/javascript">
+        function Export() {
+            html2canvas(document.getElementById('table1'), {
+                onrendered: function (canvas) {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 500
+                        }]
+                    };
+                    pdfMake.createPdf(docDefinition).download("Table.pdf");
+                }
+            });
+        }
+    </script>
+
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+<script>
+function ExportToExcel(type, fn, dl) {
+    var elt = document.getElementById('table1');
+    var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+    return dl ?
+      XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+      XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+ }
+
+</script>
+{% endblock %}

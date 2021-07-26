@@ -1,0 +1,44 @@
+
+{% extends "adminpanel/baseadmin.html" %}
+{% block content %}
+
+<div class="container-flex">
+    <div class="row">
+      <div class="col-12">
+        <div class="table-responsive">
+            <table class="table table-bordered" >
+              <thead>
+                <tr>
+                  <th>coupon_code</th>
+                  <th>coupon_percentage</th>
+                  <th>coupon_start</th>
+                  <th>coupon_end</th>
+                  <th></th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+              {% for i in coupen_table %}
+                <tr>
+                  <td>{{ i.coupon_code }}</td>
+                  <td> {{ i.coupon_percentage }}</td>
+                  <td> {{ i.coupon_start }}</td>
+                  <td> {{ i.coupon_end }}</td>
+                  <td>
+                    {% if i.expire_date%}
+                    <button class="btn btn-sm btn-success">New</button>
+                    {% else %}
+                    <button class="btn btn-sm btn-danger">Expired</button>
+
+                    {% endif %}
+                  &nbsp;<a class="btn btn-danger" href="{% url 'coupon_delete' i.id %}" onclick="return confirm('Are you sure to delete?')">delete</a>
+
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

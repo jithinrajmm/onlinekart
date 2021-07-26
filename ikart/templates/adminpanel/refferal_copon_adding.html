@@ -1,0 +1,44 @@
+{% extends "adminpanel/baseadmin.html" %}
+{% block content %}
+{% load static %}
+
+
+<!-- add category offer -->
+<div class="row d-flex justify-content-center" >
+    <div class="col-md-8 grid-margin">
+                    <div class="card ">
+                      <div class="card-body">
+                      <center><h1> ADDING COUPEN</h1></center>  
+                      <div class="card" method="POST" action="">
+                          <br>
+                          <br>
+										
+                        <div class="card-body">
+                          <form action="" method="POST">
+                          {% csrf_token %}
+                            <div class="form-row">
+                              <div class="col">
+                                <input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control text-white" placeholder="enter amount" name="percentege" Required>
+                              </div>
+                            </div>
+                
+                            <br>
+            
+                            <br>
+                            <center><button type="" class="btn btn-danger">add coupon percentage</button></center>
+                          </form>
+                          <br>
+                        </div>
+                      </div>
+              </div>
+    
+
+
+
+  </div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+	{% load static %}
+<head><meta charset="utf-8"/>
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="max-age=604800" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+<title>GreatKart | One of the Biggest Online Shopping Platform</title>
+
+<link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+<!-- jQuery -->
+<script src="{% static 'store/js/jquery-2.0.0.min.js' %}" type="text/javascript"></script>
+
+<!-- Bootstrap4 files-->
+<script src="{% static 'store/js/bootstrap.bundle.min.js' %}" type="text/javascript"></script>
+<link href="{% static 'store/css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+
+<!-- Font awesome 5 -->
+<link href="{% static 'store/fonts/fontawesome/css/all.min.css' %}" type="text/css" rel="stylesheet">
+
+<!-- custom style -->
+<link href="{% static 'store/css/ui.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'store/css/responsive.css' %}" rel="stylesheet" media="only screen and (max-width: 1200px)" />
+
+<!-- custom javascript -->
+<script src="{% static 'store/js/script.js' %}" type="text/javascript"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AcxS8wzOOf7gbKpkMRjAgYHVFfTOEfHtvLDeaELad_x7dKHy2uN9cM-kmfKDnGw4fUpV0yHdlzWdLc31&currency=USD"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- 
+<script type="text/javascript">
+/// some script
+
+// // jquery ready start
+// $(document).ready(function() {
+// 	// jQuery code
+
+// }); 
+// jquery end
+</script> -->
+
+</head>
+<body class="mh-100">
+
+
+<header class="section-header">
+
+
+<section class="header-main border-bottom" style=" background:#EFF3ED">
+	<div class="container">
+<div class="row align-items-center">
+	<div class="col-lg-2 col-md-3 col-6">
+		<a href="{% url 'index1' %}" class="brand-wrap">
+			<h1 class="text-dark">Icom</h1>
+		</a> <!-- brand-wrap.// -->
+	</div>
+	<!-- {% block dropdown %} -->
+	<div class="col-lg col-sm col-md col-6 flex-grow-0">
+		<div class="category-wrap dropdown d-inline-block float-right">
+			<button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown"> 
+				<i class="fa fa-bars"></i> All category 
+			</button>
+			<div class="dropdown-menu">
+				
+				<a href="{% url 'store' %}">All Products</a>
+				{% for category in linkss %}
+				<a class="dropdown-item" href="{{ category.get_url }}">{{ category.category_name }}</a>
+				{% endfor %}
+
+			</div>
+		</div> 
+	</div> <!-- col.// -->
+	<!-- {% endblock %} -->
+	<a href="{% url 'store' %}" class="btn btn-outline-dark">Store</a>
+	<div class="col-lg  col-md-6 col-sm-12 col">
+
+		<!-- search button forms -->
+		<form action="{% url 'search' %}" class="search" method="GET" >
+			<div class="input-group w-100">
+			
+			    <input type="text" class="form-control" style="width:60%;" placeholder="Search" name="keyword" >
+			    
+			    <div class="input-group-append">
+			      <button class="btn btn-dark" type="submit">
+			
+			        <i class="fa fa-search"></i>
+			      </button>
+			    </div>
+		    </div>
+		</form> <!-- search-wrap .end// -->
+
+
+	</div> <!-- col.// -->
+	<div class="col-lg-3 col-sm-6 col-8 order-2 order-lg-3">
+				<div class="d-flex justify-content-end mb-3 mb-lg-0">
+					<div class="widget-header">
+						<small class="title text-muted"></small>
+						<div> 
+                            {% if user.id is  None %}
+                            <a href="{% url 'login' %}">Sign in</a> <span class="dark-transp"> | </span>
+                           <a href="{% url 'register' %}"> Register</a>
+                           <!-- <a href="" class="btn px-0"> -->
+                               {% else %}
+                               <a href="{% url 'signout_user' %}">signout</a> <span class="dark-transp"> | </span>
+							   <a href="{% url 'user_profile' %}" ><strong> {{ request.user.first_name }}</strong></strong></a>
+                           <a href="" class="btn px-0">
+                               {% endif%}
+						</div>
+					</div>
+					<a href="{% url 'cart' %}" class="widget-header pl-3 ml-3">
+						<div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
+						<span class="badge badge-pill badge-danger notify">{{cart_count}}</span>
+					</a>
+				</div> <!-- widgets-wrap.// -->
+			</div> <!-- col.// -->
+</div> <!-- row.// -->
+	</div> <!-- container.// -->
+</section> <!-- header-main .// -->
+
+
+
+
+</header>
+ <!-- section-header.// -->
+
+{% block content %}
+{% endblock %}
+
+
+
+
+
+
+
+
+<!-- ========================= FOOTER ========================= -->
+<footer class="section-footer border-top fixed-bottom">
+	
+		<section class="footer-bottom border-top row">
+			<div class="col-md-2">
+				<p class="text-muted"></p>
+			</div>
+			<div class="col-md-8 text-md-center">
+				<span  class="px-2">jithin@gmail.com</span>
+				<span  class="px-2">+879-332-9375</span>
+				<span  class="px-2">CrOssRoAdS</span>
+			</div>
+			<div class="col-md-2 text-md-right text-muted">
+				<i class="fab fa-lg fa-cc-visa"></i>
+				<i class="fab fa-lg fa-cc-paypal"></i>
+				<i class="fab fa-lg fa-cc-mastercard"></i>
+			</div>
+		</section>
+	<!-- //container -->
+</footer>
+
+</body>
+</html>
+<!-- ========================= FOOTER END // ========================= -->

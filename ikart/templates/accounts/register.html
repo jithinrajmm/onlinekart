@@ -1,0 +1,76 @@
+{% extends "ekarthomes/base.html" %}
+{% block content %}
+<section class="section-content padding-y">
+<!-- registration user -->
+	<div class="card mx-auto" style="max-width:500px; margin-top:40px; border-radius:10px;">
+      <article class="card-body">
+		<header class="mb-4"><h4 class="card-title" style="color:rgb(255, 8, 0)">Sign up</h4></header>
+
+		  <form id="form_id" method="post">
+			{% csrf_token %}
+
+				<div class="form-row">
+					<div class="col form-group">
+						<label style="color:rgb(5, 5, 4)">First name</label>
+					  	{{ form.first_name }}
+					</div> <!-- form-group end.// -->
+					<div class="col form-group">
+
+						<!-- user first name  -->
+						<label style="color:rgb(8, 8, 6)">Last name</label>
+					  	{{ form.last_name }}
+					</div> <!-- form-group end.// -->
+				</div> <!-- form-row end.// -->
+			<div class="form-row">
+					<div class="col form-group">
+						<label style="color:rgb(2, 2, 1)">Email</label>
+					  {{ form.email }}
+					</div> <!-- form-group end.// -->
+					<div class="col form-group">
+						<label style="color:rgb(8, 8, 5)">Phone number</label>
+					  {{ form.phone_number }}
+					</div> <!-- form-group end.// -->
+				</div> <!-- form-row end.// -->
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label style="color:rgb(8, 8, 6)">Create password</label>
+						{{ form.password }}
+
+					</div> <!-- form-group end.// -->
+					<div class="form-group col-md-6">
+						<label style="color:rgb(7, 7, 5)">Confirm password</label>
+					    {{ form.confirm_password }}
+					</div> <!-- form-group end.// -->
+				</div>
+			    <div class="form-group">
+			        <button type="submit" onclick="submit()" class="btn btn-primary btn-block"> Register  </button>
+			    </div> <!-- form-group// -->
+			  <p style="color:red; ">{{ form.email.errors }} </p>
+			  <p style="color:red; "> {{ form.non_field_errors }}</p>
+
+			</form>
+		</article><!-- card-body.// -->
+    </div> <!-- card .// -->
+    <p class="text-center mt-4">Have an account? <a href=" {% url 'login' %}">Log In</a></p>
+    <br><br>
+</section>
+<script>
+	document.getElementById('id_phone_number').type="number"
+</script>
+<script>
+	// id_first_name
+function submit(){
+	function namevalidate(){
+		var name=document.getElementById("id_first_name").Value
+		var name_regex='/^[a-zA-Z ]+$/'
+		if (name.match(name_regex)){
+			return true
+		}
+		else{
+			return false
+		}
+
+	}
+}
+</script>
+{% endblock %}

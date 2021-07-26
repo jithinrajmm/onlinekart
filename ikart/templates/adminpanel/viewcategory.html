@@ -1,0 +1,33 @@
+{% extends "adminpanel/baseadmin.html" %}
+{% block content %}
+<div class="table-responsive">
+                      <table class="table table-bordered" >
+                        <thead>
+                          <tr>
+                            <th>id</th>
+                            <th>categoryName</th>
+                            <th>slugs</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in catview %}
+                          <tr>
+                            <td>{{ product.id }}</td>
+                            <td> {{ product.category_name }} </td>
+                            <td> {{ product.slug}} </td>
+                            <td> {{ product.description }}</td>
+                            <td><a class="btn btn-danger" href="{% url 'edit_category' product.id %}">Edit</a>
+                            &nbsp;<a class="btn btn-danger" href="{% url 'delete_category' product.id %}" onclick="return confirm('Are you sure to delete?')" >delete</a></td>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <script>
+                      document.getElementById("id_product_name").onkeyup=function(){
+                          document.getElementById("id_slug").value=document.getElementById("id_product_name").value.toLowerCase().replace(/ /g,"-");
+                      }
+                    </script>
+                    
+{% endblock %}

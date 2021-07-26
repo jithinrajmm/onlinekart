@@ -1,0 +1,325 @@
+{% extends "ekarthomes/base.html" %}
+{% block content %}
+{% load static %}
+<link href="{% static 'admin/assets/css/cropper.min.css' %}" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- <style>
+    body{
+    margin-top:20px;
+    color: #1a202c;
+    text-align: left;
+    background-color: #e2e8f0;    
+}
+.main-body {
+    padding: 15px;
+}
+.card {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.gutters-sm {
+    margin-right: -8px;
+    margin-left: -8px;
+}
+
+.gutters-sm>.col, .gutters-sm>[class*=col-] {
+    padding-right: 8px;
+    padding-left: 8px;
+}
+.mb-3, .my-3 {
+    margin-bottom: 1rem!important;
+}
+
+.bg-gray-300 {
+    background-color: #e2e8f0;
+}
+.h-100 {
+    height: 100%!important;
+}
+.shadow-none {
+    box-shadow: none!important;
+}
+</style> -->
+
+<div class="container p-5">
+    <div class="main-body">
+        
+<!-- this is user profile with picture -->
+       {% include 'alerts.html' %}
+    
+          <div class="row gutters-sm" >
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body"style="border: solid 5px rgb(2, 2, 2,0.5);">
+                  <div class="d-flex flex-column align-items-center text-center">
+
+
+
+                    <form method="POST" action="{% url 'user_images' %}" enctype="multipart/form-data">
+                      {% csrf_token %}
+                  
+                  
+
+                    {% if profile_images%}
+                    <img src="{{ profile_images.image.url }}" id="imageview1" alt="Admin" class="rounded-circle" width="150" height="150">
+                    {% else %}
+                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" id="imageview1" alt="Admin" class="rounded-circle" width="150">
+                    {%endif%}
+                    <textarea name="pro_img1" id="pro_img1" style="display: none;"></textarea>
+                    <div class="mt-3">
+
+                      <!-- images links and buttons below have javascript code  -->
+          
+
+                      <a href="#"><i id="icon_upload" class="fa fa-upload" onclick="hideee(); _upload()"></i></a>
+                      <input type="file" name="images1" style="display:none" accept="image/png, image/gif, image/jpeg" class=" btn btn-outline-dark  col-11" required id="id_images1">
+                      <!-- <a class="btn btn-outline-dark" href="#" role="button">add image</a> -->
+
+                      <button type="submit" style="display: none;" id='show' class="btn btn-dark mr-2">Save</button>
+
+
+                      </form>
+
+                      <h4>{{request.user.first_name}} {{ request.user.last_name}} </h4>
+                      <p class="text-secondary mb-1">{{ request.user.email }}</p>
+                      <p class="text-muted font-size-sm">{{ request.user.phone }}</p>
+                      {%if refferal_coupon %}
+                      <p>available coupons</p>
+                      {%for refferal_coupon in refferal_coupon %}
+                      <p><input id="textarea" class="text-center" type="text" id="country" name="country" value="{{ refferal_coupon.ref_coupon }}" readonly></p>
+                      {% endfor %}
+                      {%else%}
+                      {%endif%}
+
+                      <p>referal link</p>
+
+                      
+                      <p><input id="mytext" class="text-center" type="text" id="country" name="country" value="{{refferal_link}}" readonly></p>
+                      <p><button onclick="myFunction()">Copy</button></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              {% if address %}
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Full Name</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{address.first_name}} {{ address.last_name}} 
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{ address.email }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Phone</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{ address.phone_number }}
+                    </div>
+                  </div>
+                  <hr>
+                 
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">joined date </h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{ address.date_joined }}
+                    </div>
+                  </div>
+                  <hr>
+                  <hr>
+                
+             
+                  <hr>
+                  
+                  <div class="row d flex justify-content-left">
+                    <div class="col-12">
+                      <a class="btn btn-outline-dark"  href="{% url 'view_orders' %}">ORDERS</a>
+                    </div>
+                    <hr>
+                    <hr>
+                    <br>
+                    <div class="col-12 mt-2">
+                      <a class="btn btn-outline-dark" href="{% url 'view_address' %}">ADDRES</a>
+                    </div>
+                   
+                  </div>
+                </div>
+              </div>
+              {% else %}
+              <div class="row d flex justify-content-left">
+                <div class="col-12">
+                  <a class="btn btn-outline-dark btn-block"  href="{% url 'view_address' %}">{{request.user.first_name}} please add Address</a>
+                </div>
+          
+              </div>
+
+              {% endif %}
+
+        
+
+
+            </div>
+          </div>
+
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLongTitle">Crop Image</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+           <div class="modal-body">
+               <div class="result1"></div>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+               </button>
+               <button type="button" id="btnCrop1" class="btn save1 btn-primary">Save changes
+               </button>
+           </div>
+       </div>
+   </div>
+</div>
+    <script>
+  function myFunction() {
+  /* Get the text field */
+  var copyText = document.getElementById("mytext");
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+
+  /* Alert the copied text */
+  // alert("Copied the text: " + copyText.value);
+  }
+    </script>
+<!-- image cropping -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    let result1 = document.querySelector('.result1'),
+        save1 = document.querySelector('.save1'),
+        cropped1 = document.querySelector('.imageview1'),
+        upload1 = document.querySelector('#id_images1'),
+        cropper1 = '';
+
+    upload1.addEventListener('change', (e) => {
+            var fileName = document.getElementById("id_images1").value;
+            var idxDot = fileName.lastIndexOf(".") + 1;
+            var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+            if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
+                if (e.target.files.length) {
+                    // start file reader
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        if (e.target.result) {
+                            // create new image
+                            $("#exampleModalCenter1").modal("show");
+                            let img1 = document.createElement('img');
+                            img1.id = 'image1';
+                            img1.src = e.target.result
+                            // clean result before
+                            result1.innerHTML = '';
+                            // append new image
+                            result1.appendChild(img1);
+                            // init cropper
+                            cropper1 = new Cropper(img1, {
+                                aspectRatio:  16 / 10,
+                                viewMode: 2,
+                            });
+                        }
+                    };
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            }
+            else {
+                swal("this file type is not supported", {
+                    icon: "error",
+                })
+                fileName = "";
+                console.log(fileName)
+            }
+        }
+    );
+
+    save1.addEventListener('click', (e) => {
+        e.preventDefault();
+        // get result to data uri
+        let imgSrc1 = cropper1.getCroppedCanvas({
+            width: 300,
+            height: 500// img disp value
+        }).toDataURL();
+        $("#exampleModalCenter1").modal("hide");
+        imageview1.src = imgSrc1;
+        $('#pro_img1').val(imgSrc1)
+    });
+</script>
+<!-- image uploading button -->
+<script>
+  function _upload(){
+      document.getElementById('id_images1').click();
+  }
+  </script>
+
+<script>
+  var a;
+  function hideee(){
+    if (a==1){
+      document.getElementById('show').style.display='none';
+      document.getElementById('icon_upload').style.display='inline'
+      return a=0;
+
+    }
+    else{
+      document.getElementById('show').style.display='inline'
+      document.getElementById('icon_upload').style.display='none'
+      return a=1;
+    }
+  }
+</script>
+
+{% endblock %}

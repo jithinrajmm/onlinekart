@@ -1,0 +1,74 @@
+
+{% extends "adminpanel/baseadmin.html" %}
+
+
+{% block content %}
+
+<div style="margin-left: 50px;">
+<h1>Sales Report</h1>
+<div style="display: flex;">
+<form action="{% url 'month_report' %}" method="POST" >{% csrf_token %}
+    <div class="form-group">
+        <label for="example-month-input" class="">Monthly</label>
+        <div class="">
+          <input class="form-control" type="month" name="month" id="example-month-input" style="color:black;background-color: seashell; width: 250px; border-radius: 12px;" >
+          <BR>
+          <button type="submit" class="btn btn-outline-danger">MONTHLY REPORT</button>
+        </div>
+      </div>
+
+</form>
+<form action="{% url 'yearly_report' %}" method="GET" >
+    <div class="form-group" style="margin-left: 200px;">
+        <label for="" class="">Yearly</label>
+        <div class="">
+            <input type="year" id="datepicker" name="year" value="" class="form-control" style="color:black;background-color: seashell; width: 250px; border-radius: 12px;" >
+            <BR>
+          <button type="submit" class="btn btn-outline-danger">YEARLY REPORT</button>
+        </div>
+      </div>
+
+</form>
+<form action="{% url 'date_report' %}" method="GET" >
+    <div class="form-group" style="margin-left: 100px;; ">
+        <label for="example-date-input" class="">Date Wise</label>
+          <div class="">
+         <input class="form-control" name="start" id="date-start" onchange=" setMaxDate()" type="date" value="" autocomplete="off" style="color:black;background-color: seashell;" >
+         <input class="form-control" name="end" id="date-end" type="date" value="" autocomplete="off" style="color:black;background-color: seashell;" >
+         </div>
+         <BR>
+     
+          <button type="submit" class="btn btn-outline-danger">SEARCH</button>
+          
+        </div>
+      
+
+
+</form>
+
+</div>
+
+
+<div class="row" >
+
+    {% block table %}
+
+    {% endblock %}
+
+</div>
+
+
+
+
+
+<script>
+    function setMaxDate(){
+        var startDate= document.getElementById("date-start").value
+        document.getElementById("date-end").setAttribute('min',startDate)
+    }
+
+    
+</script>
+
+
+{% endblock %}

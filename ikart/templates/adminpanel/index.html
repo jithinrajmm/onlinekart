@@ -1,0 +1,255 @@
+
+{% extends "adminpanel/baseadmin.html" %}
+{% block content %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['RAZORPAY',  {{ sum_of_razor_paypayPal }}],
+          ['PAYPAL',     {{ pay_pal_amount }}],
+          ['COD', {{ cod_amount  }} ],
+         
+        ]);
+
+        var options = {
+          backgroundColor: 'transparent',
+                   'width':400,
+                   'height':300,
+                   'title' : 'My Chart'
+          
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+    <script>
+            var data = google.visualization.arrayToDataTable([
+         ['Element', 'Density', { role: 'style' }],
+         ['Copper', 8.94, '#b87333'],            // RGB value
+         ['Silver', 10.49, 'silver'],            // English color name
+         ['Gold', 19.30, 'gold'],
+         ['Platinum', 21.45, 'color: #e5e4e2' ], // CSS-style declaration
+      ]);
+    </script>
+
+
+     
+           
+    
+<div class="row">
+  <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-9">
+            <div class="d-flex align-items-center align-self-start">
+              <h3 class="mb-0"> Sales Amount </h3>
+              <p class="text-success ml-2 mb-0 font-weight-medium">{{ sum_of_razor_paypayPal }}</p>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="icon icon-box-success ">
+              <span class="mdi mdi-arrow-top-right icon-item"></span>
+            </div>
+          </div>
+        </div>
+        <h6 class="text-muted font-weight-normal"></h6>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-9">
+            <div class="d-flex align-items-center align-self-start">
+              <h3 class="mb-0">PayPal sales</h3>
+              <p class="text-success ml-2 mb-0 font-weight-medium">
+                {{ pay_pal_amount }}</p>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="icon icon-box-success">
+              <span class="mdi mdi-arrow-top-right icon-item"></span>
+            </div>
+          </div>
+        </div>
+        <h6 class="text-muted font-weight-normal"></h6>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-9">
+            <div class="d-flex align-items-center align-self-start">
+              <h3 class="mb-0">Cash on delivery</h3>
+              <p class="text-danger ml-2 mb-0 font-weight-medium">{{ cod_amount  }}</p>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="icon icon-box-danger">
+              <span class="mdi mdi-arrow-bottom-left icon-item"></span>
+            </div>
+          </div>
+        </div>
+        <h6 class="text-danger font-weight-normal">{{ cod_count }} : Orders are pending </h6>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-9">
+            <div class="d-flex align-items-center align-self-start">
+              <h3 class="mb-0">Razor pay</h3>
+              <p class="text-success ml-2 mb-0 font-weight-medium">{{ razor_pay_amount }}</p>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="icon icon-box-success ">
+              <span class="mdi mdi-arrow-top-right icon-item"></span>
+            </div>
+          </div>
+        </div>
+        <h6 class="text-muted font-weight-normal"></h6>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xl-4 col-sm-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-9">
+            <div class="d-flex align-items-center align-self-start">
+              <h3 class="mb-0"> Amount of stock </h3>
+              <p class="text-success ml-2 mb-0 font-weight-medium">{{ amount_of_stock }}</p>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="icon icon-box-success ">
+              <span class="mdi mdi-arrow-top-right icon-item"></span>
+            </div>
+          </div>
+        </div>
+        <h6 class="text-muted font-weight-normal"></h6>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-sm-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-9">
+            <div class="d-flex align-items-center align-self-start">
+              <h3 class="mb-0">Total revenue</h3>
+              <p class="text-success ml-2 mb-0 font-weight-medium">
+                {{ total_amount_recieved }}</p>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="icon icon-box-success">
+              <span class="mdi mdi-arrow-top-right icon-item"></span>
+            </div>
+          </div>
+        </div>
+        <h6 class="text-muted font-weight-normal"></h6>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-sm-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-9">
+            <div class="d-flex align-items-center align-self-start">
+              <h3 class="mb-0">pending payments</h3>
+              <p class="text-danger ml-2 mb-0 font-weight-medium">{{cod_amount}}</p>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="icon icon-box-danger">
+              <span class="mdi mdi-arrow-bottom-left icon-item"></span>
+            </div>
+          </div>
+        </div>
+        <h6 class="text-muted font-weight-normal"></h6>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    </div>
+    <div class="col-6">
+      <div id="piechart" style="width: 900px; height: 500px; background-color: black;"></div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<!-- <div class="row">
+  <div col-6>
+
+</div>
+<div col-6>
+<div id="piechart" style="width: 900px; height: 500px; background-color: black;"></div>
+<div id="piechart" style="width: 900px; height: 500px; background-color: black;"></div>
+<div col-6>
+</div> -->
+
+
+
+
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+  window.onload = function () {
+  
+  var chart = new CanvasJS.Chart("chartContainer", {
+    animationEnabled: true,
+    theme: "light2", // "light1", "light2", "dark1", "dark2"
+    title:{
+      text: "Daily sales"
+    },
+    axisY: {
+      title: "Reserves(MMbbl)"
+    },
+    data: [{        
+      type: "column",  
+      showInLegend: true, 
+      legendMarkerColor: "grey",
+      legendText: "MMbbl = one million barrels",
+      dataPoints: [      
+        { y: 300878, label: "Pending" },
+        { y: 266455,  label: "Completed" },
+        { y: 169709,  label: "Accepted" },
+        { y: 158400,  label: "Cancel" },
+      
+      ]
+    }]
+  });
+  chart.render();
+  
+  }
+  </script>
+
+
+       
+{%endblock%}

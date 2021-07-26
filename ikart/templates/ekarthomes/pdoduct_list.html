@@ -1,0 +1,53 @@
+{% extends 'ekarthomes/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<style>
+
+.text-gray {
+    color: rgb(0, 0, 0)
+}
+
+img {
+    height: 100px;
+    width: 150px
+}
+</style>
+
+<div class="container py-1">
+    <div class="row text-center text-white mb-2">
+       
+    </div>
+    <div class="row">
+        {% for order_product in order_product %}
+        <div class="col-lg-8 mx-auto mt-2" >
+            
+            <!-- List group-->
+            <ul class="list-group shadow">
+                <!-- list group item-->
+                <li class="list-group-item">
+                    <!-- Custom content-->
+                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        <div class="media-body order-2 order-lg-1">
+                            <h5 class="mt-0 font-weight-bold mb-2">{{ order_product.product.product_name }}</h5>
+                            <p class="font-italic text-muted mb-0 small">{{ order_product.product.brand }}| {{ order_product.product.description }}</p>
+                            <div class="d-flex align-items-center justify-content-between mt-1">
+                                <h6 class="font-weight-bold my-2">₹{{ order_product.product.price }}</h6>
+                                <ul class="list-inline small">
+                                    <li>jit</li>
+                       
+                                </ul>
+                                <a class="btn btn-outline-secondary" href="{% url 'product_track' order_product.id %}" role="button">Track order</a>
+                            </div>
+                        </div><img src="{{ order_product.product.images1.url }}" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                    </div> <!-- End -->
+                </li> <!-- End -->
+                <!-- list group item-->
+            </ul> <!-- End -->
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

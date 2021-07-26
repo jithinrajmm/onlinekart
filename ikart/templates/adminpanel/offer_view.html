@@ -1,0 +1,80 @@
+
+{% extends "adminpanel/baseadmin.html" %}
+{% block content %}
+
+<div class="container-flex">
+    <div class="row">
+      <div class="col-6">
+        <div class="table-responsive">
+            <table class="table table-bordered" >
+              <thead>
+                <tr>
+                  <th>category_name</th>
+                  <th>offer</th>
+                  <th>offer_start</th>
+                  <th>offer_end</th>
+                  <th></th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+              {% for i in Category_offer %}
+                <tr>
+                  <td>{{ i.category.category_name }}</td>
+                  <td> {{ i.offer }}</td>
+                  <td> {{ i.offer_start }}</td>
+                  <td> {{ i.offer_end }}</td>
+                  <td>
+                    {% if i.check_expired %}
+                    <p>{{i.check_expired}}</p>
+                    <button class="btn btn-sm btn-success">New</button>
+                    {% else %}
+                    <button class="btn btn-sm btn-danger">Expired</button>
+
+                    {% endif %}
+                  &nbsp;<a class="btn btn-danger" href="{% url 'delete_cat_offer' i.id %}" onclick="return confirm('Are you sure to delete?')">delete</a>
+
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+      </div>
+      <div class="col-6">
+        <div class="table-responsive">
+            <table class="table table-bordered text-white" >
+              <thead>
+                <tr>
+                    <th>product_name</th>
+                    <th>offer</th>
+                    <th>offer_start</th>
+                    <th>offer_end</th>
+                    <th></th>
+                    
+                  </tr>
+              </thead>
+              <tbody>
+             {% for i in product_offer %}
+                <tr>
+                  <td>{{ i.product.product_name }}</td>
+                  <td> {{ i.offer }}</td>
+                  <td> {{ i.offer_start }}</td>
+                  <td> {{ i.offer_end }}</td>
+                  <td>
+                    {% if i.check_expired %}
+                    <p>{{i.check_expired}}</p>
+                           <button class="btn btn-sm btn-success">New</button>
+                           {% else %}
+                           <button class="btn btn-sm btn-danger">Expired</button>
+
+                           {% endif %}
+                  &nbsp;<a class="btn btn-danger" href="{% url 'delete_pro_offer' i.id %}" onclick="return confirm('Are you sure to delete?')">delete</a>
+                  
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

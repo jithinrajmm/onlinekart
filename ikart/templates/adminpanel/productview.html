@@ -1,0 +1,38 @@
+{% extends "adminpanel/report_genarations.html" %}
+{% block content %}
+<div class="table-responsive">
+                      <table class="table table-bordered" >
+                        <thead>
+                          <tr>
+                            <th>product_name</th>
+                            <th>images1</th>
+                            <th>price</th>
+                            <th>brand</th>
+                            <th>stock</th>
+                            <th>is_available</th>
+                            <th>category</th>
+                            <th>created_date</th>
+                            <th>modified_date</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in products %}
+                          <tr>
+                            <td>{{ i.product_name }}</td>
+                            <td> <img style="width:60px;" src=" {{ i.images1.url }}" ></td>
+                            <td> {{ i.price }}</td>
+                            <td> {{ i.brand }}</td>
+                            <td> {{ i.stock }}</td>
+                            <td> {{ i.is_available }}</td>
+                            <td> {{ i.category }}</td>
+                            <td> {{ i.created_date }}</td>
+                            <td> {{ i.modified_date }}</td>
+                            <td>
+                            &nbsp;<a class="btn btn-danger" href="{% url 'delete_product' i.id %}" onclick="return confirm('Are you sure to delete?')">delete</a>
+
+                       <a class="btn btn-danger" href="{% url 'edit_product' i.id %}">Edit</a></td>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+{% endblock %}

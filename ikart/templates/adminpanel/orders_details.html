@@ -1,0 +1,104 @@
+
+{% extends "adminpanel/baseadmin.html" %}
+{% block content %}
+<div class="table-responsive">
+                      <table class="table table-bordered" >
+                        <thead>
+                          <tr>
+
+                            <th>user</th>
+                            <th>payment</th>
+                            <th>product</th>
+                            <th>price</th>
+                            <th>quantity</th>
+                            <th>ordered</th>
+                        
+                            <th>status</th>
+                            <th>user_cancelled</th>
+                
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for order_details in order_details %}
+                          <tr>
+                            <td>{{ order_details.user }}</td>
+
+                            <td> {{ order_details.payment}}</td>
+                            <td> {{ order_details.product }}</td>
+
+                            <td> {{ order_details.product_price }}</td>
+                            <td> {{ order_details.quantity}}</td>
+                            
+                            
+                            <td> {{ order_details.ordered }}</td>
+                          
+                            <form method="POST" action="{% url 'order_status' order_details.id %}">
+                              {% csrf_token %} 
+
+                              {% if order_details.user_cancelled == 'True' %}
+                            
+                              
+
+                              <td style="color: red;"> <b> User cancelled </b> </td>
+                            <td style="display: none;">current status: 
+                              <br>{{ forms.status }}
+                              <button type="submit" class="btn btn-primary">Submit</button>
+                            </td>
+                            {% else %}
+                            
+                            <!-- {{order_details.status } -->
+                            <td>current status: {{ order_details.status }}
+                              <br>{{ forms.status }}
+                              <button type="submit" class="btn btn-primary">Submit</button>
+                            </td>
+                            {% endif %}
+                            
+                          </form>
+                          <td>{{ order_details.user_cancelled }} </td>
+                           
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                      <div class="d-flex justify-content-center">
+                        <nav class="mt-4" aria-label="Page navigation sample">
+                          {% if order_details.has_other_pages %}
+                            <ul class="pagination">
+                              {% if order_details.has_previous %}
+                              <li class="page-item "><a class="page-link" href="?page={{ order_details.previous_page_number }}">Previous</a></li>
+                              {% else %}
+                              <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                              {% endif %}
+                          {% for i in order_details.paginator.page_range %}
+                              {% if order_details.number == i %}
+                              <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                              {% else %}
+                              <li class="page-item "><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                              {% endif %}
+                          {%endfor%}
+                      
+                              {% if order_details.has_next %}
+                              <li class="page-item"><a class="page-link" href="?page={{ order_details.next_page_number }}">Next</a></li>
+                              {% else %}
+                              <li class="page-item disabled"><a class="page-link" href="">Next</a></li>
+                      
+                              {% endif %}
+                      
+                      
+                            </ul>
+                            {%endif%}
+                          </nav>
+                        </div>
+                    </div>
+
+                    <!-- <script type="text/javascript">
+                      function getOption() {
+                          selectElement = 
+                                  document.querySelector('#id_status');
+                                    
+                          output = selectElement.value;
+                
+                          document.querySelector('#id_status').textContent
+                                  = output;
+                      }
+                  </script> -->
+{% endblock %}

@@ -1,0 +1,143 @@
+<div class="col-3 mt-4">
+    
+	<div class="card">
+		<div class="card-body">		
+			<dl class="dlist-align">
+			  <dt> Sub Total:</dt>
+			  <dd class="text-right text-dark b"><strong>{{ sub_total }}</strong></dd>
+			</dl>
+			
+			<dl class="dlist-align">
+			  <dt> Delivery charge</dt>
+			  <dd class="text-right text-dark b"><strong>{{ deli_charge }}</strong></dd>
+			</dl>
+
+
+			<dl class="dlist-align">
+			  <dt>Grand Total:</dt>
+			  <dd class="text-right text-dark b"><strong>{{grand_total}}</strong></dd>
+			</dl>
+		
+			
+			<hr>
+			<p class="text-center mb-3">
+				<img src="{% static '/store/images/payments.png' %}" height="26">
+			</p>
+			<div class="row d-flex justify-content-center mb-3 ">
+			<!-- <a href="" class="btn btn-dark btn-block "> Confirm order </a> -->
+			<button class="btn btn-dark text-center" type="submit">C O D </button>
+		  </form>
+		</div>
+		<div class="row d-flex justify-content-center mt-5">
+		  <div id="paypal-button-container"></div>
+		</div>
+		<div class="row d-flex justify-content-center mt-5">
+		<!-- razorpey -->
+		<form class="text-center border border-light p-5" action="{% url 'razor_pay' %}" method="POST">
+
+		  {% csrf_token %}
+		  
+		  <input type="name" hidden name="order_id" value='{{ order_user.order_number }}' required class="form-control mb-4" placeholder="Name">
+		  
+		  
+		  
+		  
+		  <!-- RAZORPAY INTEGRATION HERE -->
+		  
+		  <script src="https://checkout.razorpay.com/v1/checkout.js"
+			  data-key="rzp_test_c8A2LZcmVP7VQ4"
+			  data-amount="{{razer_pay_total}}"
+			  data-currency="INR"
+			  data-order_id="{{payment.id}}"
+			  data-buttontext="Pay with Razorpay"
+			  data-name="Professional Cipher"
+			  data-description="Django and Data Science"
+			  data-image="https://example.com/your_logo.jpg"
+			  data-prefill.name="PC"
+			  data-prefill.email="pc@studygyaan.com"
+			  data-theme.color="black">
+		  </script>
+		  </form>
+		</div>
+
+			  <!-- PAYPAL INTEGRATIONS -->
+			</div>
+		  </div>
+		</div> <!-- card-body.// -->
+		</div>  <!-- card.// -->
+
+
+
+  </div>
+  <div class="col-3 mt-4">
+    
+	<div class="card">
+		<div class="card-body">		
+			<dl class="dlist-align">
+			  <dt> Sub Total:</dt>
+			  <dd class="text-right text-dark b"><strong>{{ sub_total }}</strong></dd>
+			</dl>
+			
+			<dl class="dlist-align">
+			  <dt> Delivery charge</dt>
+			  <dd class="text-right text-dark b"><strong>{{ deli_charge }}</strong></dd>
+			</dl>
+
+
+			<dl class="dlist-align">
+			  <dt>Grand Total:</dt>
+			  <dd class="text-right text-dark b"><strong>{{grand_total}}</strong></dd>
+			</dl>
+		
+			
+			<hr>
+			<p class="text-center mb-3">
+				<img src="{% static '/store/images/payments.png' %}" height="26">
+			</p>
+			<div class="row d-flex justify-content-center mb-3 ">
+			<!-- <a href="" class="btn btn-dark btn-block "> Confirm order </a> -->
+			<button class="btn btn-dark text-center" type="submit">C O D </button>
+		  </form>
+		</div>
+		<div class="row d-flex justify-content-center mt-5">
+		  <div id="paypal-button-container"></div>
+		</div>
+		<div class="row d-flex justify-content-center mt-5">
+		<!-- razorpey -->
+		<form class="text-center border border-light p-5" action="{% url 'razor_pay' %}" method="POST">
+
+		  {% csrf_token %}
+		  
+		  <input type="name" hidden name="order_id" value='{{ order_user.order_number }}' required class="form-control mb-4" placeholder="Name">
+		  
+		  
+		  
+		  
+		  <!-- RAZORPAY INTEGRATION HERE -->
+		  
+		  <script src="https://checkout.razorpay.com/v1/checkout.js"
+			  data-key="rzp_test_c8A2LZcmVP7VQ4"
+			  data-amount="{{razer_pay_total}}"
+			  data-currency="INR"
+			  data-order_id="{{payment.id}}"
+			  data-buttontext="Pay with Razorpay"
+			  data-name="Professional Cipher"
+			  data-description="Django and Data Science"
+			  data-image="https://example.com/your_logo.jpg"
+			  data-prefill.name="PC"
+			  data-prefill.email="pc@studygyaan.com"
+			  data-theme.color="black">
+		  </script>
+		  </form>
+		</div>
+
+			  <!-- PAYPAL INTEGRATIONS -->
+			</div>
+		  </div>
+		</div> <!-- card-body.// -->
+		</div>  <!-- card.// -->
+
+
+
+  </div>
+  

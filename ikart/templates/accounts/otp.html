@@ -1,0 +1,43 @@
+{% extends "ekarthomes/base.html" %}
+{% block content %}
+<section class="section-conten padding-y" style="min-height:84vh">
+	<div class="card mx-auto" style="max-width: 380px; margin-top:100px;" style="background-color: royalblue;">
+      <div class="card-body">
+      <h4 class="card-title mb-4">Sign in</h4>
+      <form action="{% url 'otp_generate' %}" method="post">
+          {% csrf_token %}
+          
+          <div class="form-group">
+			 <input type="tel" class="form-control" placeholder="Enter phone number" name="phonenumber" required >
+          </div>
+
+         
+          <div class="form-group">
+              <button type="submit" class="btn btn-dark btn-block"> Get OTP </button>
+          </div>
+
+        </form>
+        <form action="{% url 'otp_checking' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+               <input type="number" class="form-control" placeholder="Enter you otp" name="otpnumber">
+            </div> <!-- form-group// --><!-- form-group// -->
+  
+           <!-- form-group form-check .// -->
+            <div class="form-group">
+                <button type="submit" class="btn btn-dark btn-block"> login </button>
+            </div> <!-- form-group// -->
+            {% for message in messages %}
+            <p style="color:red;">{{ message }}</p>
+            {% endfor %}
+          </form>
+      </div> <!-- card-body.// -->
+    </div> <!-- card .// -->
+     <p class="text-center mt-4">Don't have account? <a href="{% url 'register' %}">Sign up</a></p>
+     <br><br>
+<!-- ============================ COMPONENT LOGIN  END.// ================================= -->
+
+
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+{% endblock %}

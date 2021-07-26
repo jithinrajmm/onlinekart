@@ -1,0 +1,218 @@
+
+{% extends 'ekarthomes/base.html' %}
+
+{% block content %}
+
+{% load static %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<body>
+
+<section class="section-content padding-y bg">
+<div class="container">
+
+<!-- ============================ COMPONENT 2 ================================= -->
+<div class="row">
+		<main class="col-md-8">
+
+<article class="card mb-4">
+<div class="card-body">
+	<h4 class="card-title mb-4">Choose Address </h4>
+	<div class="row">
+		{% for address in addresses %}
+		<div class="col-md-6">
+			
+			<div class="card-body">
+			  
+			  <p class="card-text">{{address.first_name}} {{address.city}} {{address.state}} {{address.phone}}</p>
+			  <input type="radio" id="radio" value="{{address.id}}" name="address" style="width: 18px; height:18px">
+			</div>
+			
+			 <hr>
+	
+			
+		</div> <!-- col.// -->
+		{% endfor %}
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('input[id="radio"]').click(function(){
+					var address=$(this).val();
+					console.log(address)
+
+					$.ajax({
+						url:"{% url 'collect_address' %}",
+						type:"GET",
+						data:{'address':address},
+						success:function(data){
+							console.log(data)
+							$("#firstname").val(data.first_name);
+							$("#lastname").val(data.first_name);
+							$("#phone").val(data.phone);
+							$("#email").val(data.email);
+							$("#address1").val(data.address1);
+							$("#address2").val(data.address2);
+							$("#city").val(data.city);
+							$("#state").val(data.state);
+						}
+					})
+				})
+			})
+		
+		</script>
+		
+	</div> <!-- row.// -->
+</div> <!-- card-body.// -->
+</article> <!-- card.// -->
+
+
+<article class="card mb-4">
+<div class="card-body">
+	<h4 class="card-title mb-4">choose addres</h4>
+	<form action="{% url 'place_order' %}" method="POST">
+		{% csrf_token %}
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label>Frst name</label>
+				<input type="text" name="first_name" id="firstname" class="form-control" required>
+			</div>
+			<div class="form-group col-sm-6">
+				<label>Last name</label>
+				<input type="text" name="last_name" id="lastname" class="form-control" required>
+			</div>
+			<div class="form-group col-sm-6">
+				<label>email</label>
+				<input type="email" name="email" id="email" class="form-control" required>
+			</div>
+			<div class="form-group col-sm-6">
+				<label>phone</label>
+				<input type="text" name="phone" id="phone"  class="form-control" required>
+			</div>
+			<div class="form-group col-sm-6">
+				<label>address_line_1 1</label>
+				<input type="text" name="address_line_1" id="address1"  class="form-control" required>
+			</div>
+			<div class="form-group col-sm-6">
+				<label>address_line_2</label>
+				<input type="text" name="address_line_2" id="address2" class="form-control">
+			</div>
+			<div class="form-group col-sm-6">
+				<label>City</label>
+				<input type="text" name="city" id="city"  class="form-control" required>
+				
+			</div>
+			<div class="form-group col-sm-6">
+				<label>State</label>
+				
+				<input type="text" name="state" id="state"class="form-control" required>
+			</div>
+			<div class="form-group col-sm-12">
+				<label for="">Order Note</label>
+				<textarea name="order_note" rows="2" class="form-control"></textarea>
+			</div>
+			<div class="form-group col-sm-12 d-flex justify-content-center mt-5">
+				<div class="form-check form-switch">
+				  <input class="form-check-input" name="address" value="address" type="checkbox" id="flexSwitchCheckChecked" checked>
+				  <label class="form-check-label" for="flexSwitchCheckChecked">Do you want to save the Address</label>
+				</div>
+			  </div>
+		</div> <!-- row.// -->	
+	
+</div> <!-- card-body.// -->
+</article> <!-- card.// -->
+
+<!-- accordion end endddd.// -->
+  
+		</main> <!-- col.// -->
+		<aside class="col-md-4">
+			<div class="card">
+		<div class="card-body">
+			<dl class="dlist-align">
+				<dt> Sub Total:</dt>
+				<dd class="text-right text-dark b"  ><strong>{{ sub_total }}</strong></dd>
+			  </dl>
+
+			  <dl class="dlist-align">
+				<dt> coupon offer:</dt>
+				<dd class="text-right text-dark b" ><strong>-</strong><strong  id="sub_total">00</strong></dd>
+			  </dl>
+			
+			  
+			  <!-- <dl class="dlist-align">
+				<dt> Delivery charge</dt>
+				<dd class="text-right text-dark b"><strong>{{ deli_charge }}</strong></dd>
+			  </dl> -->
+
+			  <dl class="dlist-align">
+				<dt>Grand Total:</dt>
+				<dd class="text-right text-dark b" ><strong id="grand_total">{{ grand_total }}</strong></dd>
+				
+			  </dl>
+			  <input type="text" name="coupon_code" id="coupen-name" class="form-control"><br>
+                  <a id="coupon" class="btn btn-outline-secondary"> Apply coupon </a>
+				  <p id="display">hjfjf</p>
+		  
+			
+			<p class="text-center mb-3">
+				<img src="{% static '/store/images/payments.png' %}" height="26">
+			</p>
+			<button type="submit" name="submit" class="btn btn-dark btn-block text-center ">Place Order</button>
+                <a href="{% url 'store' %}" class="btn btn-light btn-block text-center ">Continue Shopping</a>
+			</form>
+		</div> <!-- card-body.// -->
+		</div> <!-- card.// -->
+		</aside> <!-- col.// -->
+	</div> <!-- row.// -->
+
+<!-- ============================ COMPONENT 2 END//  ================================= -->
+
+
+
+
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+<!-- ========================= SECTION CONTENT END// ========================= -->
+</body>
+
+<script>
+
+	$('#coupon').click(function(){
+	var coupon=$('#coupen-name').val()
+	var grand_total='{{ grand_total }}'
+	
+		$.ajax({
+			url:"{% url 'coupon_checking_ajax' %}",
+			method: 'GET',
+			data: {'data':coupon,'grand_total':grand_total},
+			dataType: 'json',
+			success: function (data) {
+  
+			  console.log(data)
+			 
+			  
+			  
+			  if(data.couponUsed){
+				$('#display').html(data.message)
+			  }
+			  else $('#grand_total').html(data.total)
+				 $('#sub_total').html(data.offerPrice)
+				 $('#display').html(data.message)
+				 $('#razorpay').html(data.razorpay)
+  
+			 
+				// if (data.data == 'false') {
+				//     $('#display').html("Please enter a code")
+				// }
+				// if (data.data == 'true'){
+				//     $('#submit-phone').prop('disabled', true)
+				//     $('#display').css("color", "green")
+				//     $('#display').html('otp sent to your mobile number successfully')
+				// }
+			}
+		})
+	  })
+	  </script>
+{% endblock %}

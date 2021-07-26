@@ -1,0 +1,67 @@
+
+{% extends 'ekarthomes/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+
+<section class="section-intro">
+	<div class="container">
+	
+	<div class="intro-banner-wrap">
+		<img src="{% static 'store/images/banner.jfif' %}" class="img-fluid rounded">
+	</div>
+	
+	</div> <!-- container //  -->
+	</section>
+
+<!-- ========================= SECTION  ========================= -->
+<section class="section-name padding-y-sm">
+<div class="container">
+
+<header class="section-heading">
+	<a href="./store.html" class="btn btn-outline-dark float-right">See all</a>
+	<h3 class="section-title">Popular products</h3>
+</header><!-- sect-heading -->
+
+	
+<div class="row">
+	{% for product in products %}
+	<div class="col-md-3">
+		<div class="card card-product-grid">
+			<a href="{{ product.get_url }}" class="img-wrap"> <img src="{{ product.images1.url }}"> </a>
+			<figcaption class="info-wrap">
+				<a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
+				<a href="{% url 'product_details' product.category.slug product.slug %}">hhh</a>
+				<div class="price mt-1">{{ product.brand }}</div>
+				<div class="price mt-1">{{ product.category }}</div>
+			
+				{% if product.product_offer_price %} 
+				<div class="price mt-1"><s> &#x20b9; {{ product.price }}</s> &#x20b9; {{ product.product_offer_price }}</div> 
+				{% elif product.category_offer_price %}
+				<div class="price mt-1"><s> &#x20b9; {{ product.price }}</s> &#x20b9; {{ product.category_offer_price }}</div> 
+
+				{% else %}
+				<div class="price mt-1">&#x20b9; {{ product.price }}</div> 
+
+				{% endif %}
+				<!-- price-wrap.// -->
+			</figcaption>
+			{% if product.stock == 0 %}
+			<a class="btn btn-block btn-outline-dark" style="background-color: red;">Out Of Stock</a>
+			{% else %}
+			<a href="{% url 'add_cart' product.id %}" class="btn btn-block btn-outline-dark">Add to cart </a>
+			{% endif %}
+		</div>
+	</div> 
+	{% endfor %}
+</div> 
+
+</div>
+</section>
+<!-- ========================= SECTION  END// ========================= -->
+
+
+{% endblock %}
+

@@ -1,0 +1,55 @@
+{% extends "adminpanel/baseadmin.html" %}
+{% block content %}
+{% load static %}
+
+
+<!-- add category offer -->
+<div class="row d-flex justify-content-center" >
+    <div class="col-md-8 grid-margin">
+                    <div class="card ">
+                      <div class="card-body">
+                      <center><h1> ADDING COUPEN</h1></center>  
+                      <div class="card" method="POST" action="">
+										
+                        <div class="card-body">
+                          <form action="{% url 'coupon_adding' %}" method="POST">
+                          {% csrf_token %}
+                            <div class="form-row">
+                              <div class="col">
+                                <input type="text" class="form-control text-white" placeholder="Enter coupon code" name="coupon_code" Required>
+                              </div>
+                            </div>
+                            <div class="form-row mt-2">
+                              <div class="col">
+                                <input type="text" class="form-control text-white" placeholder="Enter your discount" name="discount" Required>
+                              </div>
+                            </div>
+                            <br>
+                            <div class="form-row">
+                              <div class="col">
+                            
+                                <input type="date" class="form-control text-white" placeholder="Valid From" name="valid_from" Required>
+                              </div>
+                              <div class="col">
+                               
+                                <input type="date" class="form-control text-white" placeholder="Valid To" name="valid_to" Required>
+                              </div>
+                            </div>
+                            <br>
+                            <center><button type="" class="btn btn-danger">Generate Coupon</button></center>
+                          </form>
+                          <br>
+                        </div>
+                      </div>
+              </div>
+    
+
+
+
+  </div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}
